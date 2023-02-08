@@ -1,9 +1,15 @@
 import torch
 from torch import nn
-from utils_our.models import Single_Single, VisionModel
+from utils.models import Single_Single, VisionModel
+from typing import List
 
-
-def ada_in(style, content, ax=1):
+def ada_in(style: torch.Tensor, content: torch.Tensor, ax=1):
+    
+    """
+    Implementation of Adaptive Instance Normalization
+    between style and content vectors
+    """
+    
     style_std = style.std(axis=ax).view(-1,1)
     content_std = content.std(axis=ax).view(-1,1)
     
@@ -16,7 +22,21 @@ def ada_in(style, content, ax=1):
 
 
 class FusionNet(nn.Module):
-    def __init__(self, fusion, fusion_dims, decoder_output):
+    
+    """
+    A part of KIFNet to fuse kinematic and image vectors
+    """
+        
+    def __init__(self, fusion: str, fusion_dims: List[int], decoder_output: int):
+        """
+        Args:
+            fusion: type of fusion ('avg', 'max',
+                                    'concat', 'concat-ln', 'concat-bn',
+                                    'adain-kin-cv', 'adain-cv-kin',
+                                    'dot-att', 'mlp-att')
+            fusion_dims: the number of neurons in each MLP layer 
+            decoder_output: output size of the fused vector
+        """
         super(FusionNet, self).__init__()
         self.sigmoid_net = Single_Single(inp_dim=decoder_output*2,
                                          out_dim=1,
@@ -68,19 +88,22 @@ class FusionNet(nn.Module):
 
 class KIFNet(nn.Module):
     
-    def __init__(self, inp_dim, out_dim, hidden_dims,
-                 kinematic_emb, fusion_dims, image_emb,
-                 mobone_type, mobone_path, fusion, device):
+    ''' KIFNet model '''
+    
+    def __init__(self,
+                 inp_dim: int, out_dim: int, 
+                 kinematic_emb: int, image_emb: int,
+                 hidden_dims: int, fusion_dims: List[int], 
+                 mobone_type: str, mobone_path: str,
+                 fusion: str,
+                 device: str):
         super(KIFNet, self).__init__()
-        # 'avg','max',
-        # 'concat', 'concat-ln', 'concat-bn',
-        # 'adain-kin-cv', 'adain-cv-kin',
-        # 'dot-att', 'mlp-att'
+
         if fusion in ('concat', 'concat-ln', 'concat-bn'):
             decoder_output = image_emb + kinematic_emb
         else:
             decoder_output = image_emb
-
+        
         self.kinematic_model = Single_Single(inp_dim=inp_dim,
                                              out_dim=kinematic_emb,
                                              hidden_dims=hidden_dims

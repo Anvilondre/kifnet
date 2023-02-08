@@ -7,7 +7,10 @@ sys.path.append('../ml-mobileone')
 from mobileone import mobileone
 
 class VisionModel(nn.Module):
-    def __init__(self, embedding_dim, mobone_type, mobone_path):
+    
+    '''Wrapper around MobileOne with the custom output size'''
+    
+    def __init__(self, embedding_dim: int, mobone_type: str, mobone_path: str):
         super(VisionModel, self).__init__()
 
         self.backbone = mobileone(variant=mobone_type)
