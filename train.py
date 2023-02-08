@@ -8,10 +8,10 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader, ConcatDataset
 from torch.cuda.amp import GradScaler, autocast
 from sklearn.metrics import mean_squared_error
-from utils_our.datasets import Vision_Lags2One, get_df
-from utils_our.models import KIFNet
-from utils_our import EarlyStopping, GaussianNoise
-from utils_our import split_rmse
+from utils.datasets import Vision_Lags2One, get_df
+from utils.models import KIFNet
+from utils import EarlyStopping, GaussianNoise
+from utils import split_rmse
 
 wandb.init()
 
