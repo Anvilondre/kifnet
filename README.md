@@ -1,6 +1,9 @@
 # KIFNet: Continuous Prediction of Leg Kinematics during Walking using Inertial Sensors, Smart Glasses, and Embedded Computing
 
-This is a repository, containing training source code we used for [our paper](https://drive.google.com/file/d/1VJ9a6I215R_XjWRcR6_4BoY7WIcNk8FG/view) in ICRA 2023.  
+This is a repository, containing training source code we used for [our paper](https://www.biorxiv.org/content/10.1101/2023.02.10.528052) accepted to ICRA 2023.  
+
+![Model architecture](https://i.imgur.com/BZdQhOV.png)
+
 
 In order to run our code you will need:
 1. [Egocentric Vision & Kinematics dataset](https://github.com/abs711/The-way-of-the-future). Download it and change appropriate data config files to match your paths.
