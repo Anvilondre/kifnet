@@ -14,3 +14,5 @@ Contributors:
 * [Oleksii Tsepa](https://github.com/imgremlin)  
 * [Roman Burakov](https://github.com/Anvilondre)
 * [Brokoslaw Laschowski](https://github.com/DrLaschowski)
+
+Lab: https://github.com/Comp-Neuro-Lab
